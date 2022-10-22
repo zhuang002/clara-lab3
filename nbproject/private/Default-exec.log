@@ -1,0 +1,29 @@
+called: C:\MinGW\bin\g++.exe
+	C:\Users\zhuan\Documents\NetBeansProjects\clara\lab3
+	C:\MinGW\bin\g++.exe
+	-std=c++11
+	-c
+	-g
+	parser.cpp
+	-o
+	parser.o
+
+called: C:\MinGW\bin\g++.exe
+	C:\Users\zhuan\Documents\NetBeansProjects\clara\lab3
+	C:\MinGW\bin\g++.exe
+	-std=c++11
+	-c
+	-g
+	Shape.cpp
+	-o
+	Shape.o
+
+called: C:\MinGW\bin\g++.exe
+	C:\Users\zhuan\Documents\NetBeansProjects\clara\lab3
+	C:\MinGW\bin\g++.exe
+	-std=c++11
+	parser.o
+	Shape.o
+	-o
+	parser.exe
+
