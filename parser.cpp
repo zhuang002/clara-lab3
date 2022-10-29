@@ -76,13 +76,11 @@ int main() {
 
         // Check for the command and act accordingly
         // ECE244 Student: Insert your code here
-        if (lineStream.eof()) {
-            err(ERR_INVALIDCMD);
-            lineStream.clear();
-            lineStream.ignore();
-            goto nextloop;;
-        }
+        
         if (command.compare("maxShapes")==0) {
+            if (checkStreamError(lineStream, false)) {
+                goto nextloop;
+            }
             lineStream >> max_shapes;
             if (checkStreamError(lineStream, true)) {
                 goto nextloop;;
@@ -101,6 +99,9 @@ int main() {
             cout << "New database: max shapes is " << max_shapes << endl;
             
         } else if (command.compare("create")==0) {
+            if (checkStreamError(lineStream, false)) {
+                goto nextloop;
+            }
             string name;
             lineStream >> name;
             if (checkStreamError(lineStream,false)) {
@@ -191,6 +192,9 @@ int main() {
             shape->draw();
             cout << endl;
         } else if (command.compare("move")==0) {
+            if (checkStreamError(lineStream, false)) {
+                goto nextloop;
+            }
             string name;
             lineStream >> name;
             if (checkStreamError(lineStream, false)) {
@@ -241,6 +245,9 @@ int main() {
             cout << "Moved " << name << " to " << x << " " << y << endl;
             
         } else if (command.compare("rotate")==0) {
+            if (checkStreamError(lineStream, false)) {
+                goto nextloop;
+            }
             string name;
             lineStream >> name;
             if (checkStreamError(lineStream, false)) {
@@ -279,6 +286,9 @@ int main() {
             cout << "Rotated " << name << " by " << x << " degrees" << endl;       
             
         } else if (command.compare("draw")==0) {
+            if (checkStreamError(lineStream, false)) {
+                goto nextloop;
+            }
             string name;
             lineStream >> name;
             if (checkStreamError(lineStream, true)) {
@@ -313,6 +323,9 @@ int main() {
                 
             }
         } else if (command.compare("delete")==0) {
+            if (checkStreamError(lineStream, false)) {
+                goto nextloop;
+            }
             string name;
             lineStream >> name;
             if (checkStreamError(lineStream, true)) {
@@ -373,15 +386,32 @@ bool arrayContains(string* arr, int len, string s) {
 }
 
 bool checkStreamError(stringstream& st, bool ignoreEof) {
+    /*if (ignoreEof) {
+        // should be the last argument
+        if (st.eof()) {
+            // it is the end of file
+            if (st.fail()) {
+                // it is eof and we did not read in the needed argument
+            }
+        } else {
+        }
+    } else {
+        if (st.eof()) {
+        }
+        else {
+        }
+    }*/
+    
     if (ignoreEof) {
         if (!st.eof()){
             string s;
             st >> s;
-            if (!st.eof() && !st.fail()) {
+            if (!st.fail()) {
                 err(ERR_TOOMANYARGS);
                 return true;
             }
-        }
+        } 
+        
     }
     else if (st.eof()) {
         err(ERR_TOOFEWARGS);
